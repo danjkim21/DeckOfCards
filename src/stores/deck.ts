@@ -1,29 +1,32 @@
 import { defineStore } from 'pinia'
 
-const SUITS = ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS']
-const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+export const SUITS = ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS']
+export const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
-export type DeckDataType = {
-  suit: typeof SUITS
-  value: typeof VALUES
+type CardType = {
+  suit: (typeof SUITS)[number]
+  value: (typeof VALUES)[number]
 }
 
+type DeckType = CardType[]
+
 interface State {
-  deckData: DeckDataType[]
-  handData: DeckDataType[]
+  deckData: DeckType
+  handData: DeckType
 }
 
 interface Getters {
   [key: string]: (state: State) => any
   countDeck: (state: State) => number
   countHand: (state: State) => number
-  currentDealtCard: (state: State) => DeckDataType
+  currentDealtCard: (state: State) => CardType
 }
 
 interface Actions {
   generateDeck: () => void
   shuffleDeck: () => void
-  dealCard: () => DeckDataType
+  resetDecks: () => void
+  dealCard: () => CardType | undefined
 }
 
 export const useDeckStore = defineStore<'deck', State, Getters, Actions>('deck', {
@@ -48,6 +51,10 @@ export const useDeckStore = defineStore<'deck', State, Getters, Actions>('deck',
         console.error('Unable to generate deck. Suits or values are undefined.')
         return
       }
+      if (this.handData.length) {
+        console.error('Unable to generate deck. Hand is not empty.')
+        return
+      }
 
       this.deckData = SUITS.flatMap((suit) => {
         return VALUES.map((value) => {
@@ -68,13 +75,22 @@ export const useDeckStore = defineStore<'deck', State, Getters, Actions>('deck',
         this.deckData[randIndex] = tempValue
       }
     },
+    resetDecks() {
+      this.deckData = []
+      this.handData = []
+    },
     dealCard() {
       if (!this.deckData.length) {
         console.error('Unable to deal card. Deck is empty.')
-        return
+        return undefined
       }
 
       const card = this.deckData.pop()
+
+      if (!card) {
+        console.error('Unable to deal card. Card is undefined.')
+        return undefined
+      }
 
       this.handData.push(card)
       return card

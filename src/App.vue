@@ -12,7 +12,8 @@ const store = useDeckStore()
   <main>
     <section>
       <h2>Deck</h2>
-      <button @click="store.generateDeck()">Generate Deck</button>
+      <button :disabled="store.countDeck > 0" @click="store.generateDeck()">Generate Deck</button>
+      <button :disabled="!store.countDeck" @click="store.resetDecks()">Reset Decks</button>
       <button :disabled="!store.countDeck" @click="store.shuffleDeck()">Shuffle Deck</button>
       <p>Card Count: {{ store.countDeck }}</p>
       <p>Cards: {{ store.deckData }}</p>
