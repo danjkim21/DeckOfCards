@@ -2,8 +2,6 @@
 import { useDeckStore } from './stores/deck'
 
 const store = useDeckStore()
-
-console.log(store.deckData)
 </script>
 
 <template>
@@ -14,12 +12,17 @@ console.log(store.deckData)
   <main>
     <section>
       <h2>Deck</h2>
-      <p>{{ store.count }}</p>
-      <p>{{ store.deckData }}</p>
-      <button @click="store.increment">Increment counter</button>
+      <button @click="store.generateDeck()">Generate Deck</button>
+      <button :disabled="!store.countDeck" @click="store.shuffleDeck()">Shuffle Deck</button>
+      <p>Card Count: {{ store.countDeck }}</p>
+      <p>Cards: {{ store.deckData }}</p>
     </section>
     <section>
       <h2>Hand</h2>
+      <button :disabled="!store.countDeck" @click="store.dealCard()">Deal Card</button>
+      <p>Card Count: {{ store.countHand }}</p>
+      <p>Dealt Card: {{ store.currentDealtCard }}</p>
+      <p>Hand: {{ store.handData }}</p>
     </section>
   </main>
 </template>
