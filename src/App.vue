@@ -13,13 +13,19 @@ const store = useDeckStore()
   <main>
     <section>
       <h2 class="subtitle">Deck</h2>
-      <button class="button__primary" :disabled="store.countDeck > 0" @click="store.generateDeck()">
+      <button
+        class="button__primary"
+        :disabled="store.countDeck > 0 || store.countHand > 0"
+        @click="store.generateDeck()"
+      >
         Generate Deck
       </button>
-      <button class="button__primary" :disabled="!store.countDeck" @click="store.resetDecks()">
-        Reset Decks
-      </button>
-      <button class="button__primary" :disabled="!store.countDeck" @click="store.shuffleDeck()">
+      <button class="button__primary" @click="store.resetDecks()">Reset Decks</button>
+      <button
+        class="button__primary"
+        :disabled="!store.countDeck || store.countDeck === 1"
+        @click="store.shuffleDeck()"
+      >
         Shuffle Deck
       </button>
       <p>Card Count: {{ store.countDeck }}</p>
