@@ -2,12 +2,13 @@
 import { type CardType } from '../stores/deck'
 
 defineProps<{
-  card: CardType
+  card: CardType | undefined
 }>()
 </script>
 
 <template>
-  <div class="playingCard" v-if="card">
+  <div v-if="!card" class="playingCard">No Card</div>
+  <div v-else class="playingCard">
     <div class="playingCard__value">
       {{ card.value }}
     </div>
@@ -18,7 +19,6 @@ defineProps<{
       <template v-else> ♣ </template>
     </div>
   </div>
-  <div v-else>No Card</div>
 </template>
 
 <style scoped>
@@ -26,14 +26,18 @@ defineProps<{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100px;
-  width: 80px;
-  border: 1px solid #335168;
-  background-color: #335168;
-  border-radius: 4px;
-  padding: 4px;
-  font-size: 1.25rem;
+  align-self: center;
+  height: 225px;
+  width: 185px;
+  border: 4px solid #4583b4;
+  background-color: white;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: black;
 }
+
 .playingCard__suit {
   align-self: flex-end;
 }

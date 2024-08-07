@@ -13,7 +13,7 @@ const store = useDeckStore()
   </header>
 
   <main>
-    <section>
+    <section class="section section-deck">
       <h2 class="subtitle">Deck</h2>
 
       <div class="container-buttons">
@@ -42,7 +42,7 @@ const store = useDeckStore()
 
       <CardList :cards="store.deckData" :count="store.countDeck" />
     </section>
-    <section>
+    <section class="section section-hand">
       <h2 class="subtitle">Hand</h2>
 
       <div class="container-buttons">
@@ -69,6 +69,17 @@ header {
 }
 .subtitle {
   font-weight: 500;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .button__primary {
@@ -100,12 +111,7 @@ header {
 
   main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
     gap: 2rem;
-  }
-  .button__primary {
-    width: fit-content;
   }
 
   .logo {

@@ -17,7 +17,7 @@ defineProps<{
     </ul>
   </div>
   <p>
-    Card Count: <span>{{ count }}</span>
+    Card Count: <span class="counter">{{ count }}</span>
   </p>
 </template>
 
@@ -35,5 +35,9 @@ defineProps<{
 .card-list {
   list-style: none;
   padding: 0;
+}
+
+.counter {
+  font-weight: 700;
 }
 </style>
