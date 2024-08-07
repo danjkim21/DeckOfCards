@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useDeckStore } from './stores/deck'
+import CardList from './components/CardList.vue'
+import PlayingCard from './components/PlayingCard.vue'
 
 const store = useDeckStore()
 </script>
@@ -13,32 +15,46 @@ const store = useDeckStore()
   <main>
     <section>
       <h2 class="subtitle">Deck</h2>
-      <button
-        class="button__primary"
-        :disabled="store.countDeck > 0 || store.countHand > 0"
-        @click="store.generateDeck()"
-      >
-        Generate Deck
-      </button>
-      <button class="button__primary" @click="store.resetDecks()">Reset Decks</button>
-      <button
-        class="button__primary"
-        :disabled="!store.countDeck || store.countDeck === 1"
-        @click="store.shuffleDeck()"
-      >
-        Shuffle Deck
-      </button>
-      <p>Card Count: {{ store.countDeck }}</p>
-      <p>Cards: {{ store.deckData }}</p>
+
+      <div class="container-buttons">
+        <button
+          class="button__primary"
+          :disabled="store.countDeck > 0 || store.countHand > 0"
+          @click="store.generateDeck()"
+        >
+          Generate Deck
+        </button>
+        <button
+          class="button__primary"
+          :disabled="!store.countDeck || store.countDeck === 1"
+          @click="store.shuffleDeck()"
+        >
+          Shuffle Deck
+        </button>
+        <button
+          class="button__primary"
+          :disabled="!store.countDeck && !store.countHand"
+          @click="store.resetDecks()"
+        >
+          Reset Decks
+        </button>
+      </div>
+
+      <CardList :cards="store.deckData" :count="store.countDeck" />
     </section>
     <section>
       <h2 class="subtitle">Hand</h2>
-      <button class="button__primary" :disabled="!store.countDeck" @click="store.dealCard()">
-        Deal Card
-      </button>
-      <p>Card Count: {{ store.countHand }}</p>
-      <p>Dealt Card: {{ store.currentDealtCard }}</p>
-      <p>Hand: {{ store.handData }}</p>
+
+      <div class="container-buttons">
+        <button class="button__primary" :disabled="!store.countDeck" @click="store.dealCard()">
+          Deal Card
+        </button>
+      </div>
+
+      <p>Dealt Card:</p>
+      <PlayingCard :card="store.currentDealtCard" />
+
+      <CardList :cards="store.handData" :count="store.countHand" />
     </section>
   </main>
 </template>
@@ -63,6 +79,7 @@ header {
   color: #fff;
   font-size: 1rem;
   transition: all 0.3s;
+  width: 100%;
 }
 .button__primary:disabled {
   opacity: 0.5;
@@ -86,6 +103,9 @@ header {
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
     gap: 2rem;
+  }
+  .button__primary {
+    width: fit-content;
   }
 
   .logo {
