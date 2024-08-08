@@ -60,6 +60,10 @@ const store = useDeckStore()
 </template>
 
 <style scoped>
+main {
+  display: grid;
+  gap: 2rem;
+}
 header {
   line-height: 1.5;
 }
@@ -75,13 +79,11 @@ header {
   flex-direction: column;
   gap: 1rem;
 }
-
 .container-buttons {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
-
 .button__primary {
   padding: 6px 16px;
   border-radius: 24px;
@@ -108,16 +110,9 @@ header {
     place-items: center;
     margin-bottom: 2rem;
   }
-
-  main {
-    display: grid;
-    gap: 2rem;
-  }
-
   .logo {
     margin: 0 2rem 0 0;
   }
-
   header .wrapper {
     display: flex;
     place-items: flex-start;
