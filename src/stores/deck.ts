@@ -1,33 +1,5 @@
 import { defineStore } from 'pinia'
-
-export const SUITS = ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS']
-export const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-
-export type CardType = {
-  suit: (typeof SUITS)[number]
-  value: (typeof VALUES)[number]
-}
-
-export type DeckType = CardType[]
-
-interface State {
-  deckData: DeckType
-  handData: DeckType
-}
-
-interface Getters {
-  [key: string]: (state: State) => any
-  countDeck: (state: State) => number
-  countHand: (state: State) => number
-  currentDealtCard: (state: State) => CardType
-}
-
-interface Actions {
-  generateDeck: () => void
-  shuffleDeck: () => void
-  resetDecks: () => void
-  dealCard: () => CardType | undefined
-}
+import { SUITS, VALUES, type State, type Getters, type Actions } from './DeckTypes'
 
 export const useDeckStore = defineStore<'deck', State, Getters, Actions>('deck', {
   state: () => ({

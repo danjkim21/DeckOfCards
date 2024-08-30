@@ -1,5 +1,6 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { SUITS, useDeckStore, VALUES } from './deck'
+import { useDeckStore } from './deck'
+import { SUITS, VALUES } from './DeckTypes'
 import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('Deck Store', () => {

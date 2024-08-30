@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DeckType } from '../stores/deck'
+import { type DeckType } from '../stores/DeckTypes'
 
 defineProps<{
   cards: DeckType
